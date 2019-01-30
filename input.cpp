@@ -132,19 +132,19 @@ void Input::load(string name){
           
           stringstream geek(reader);
           
-          getline(geek, shf.shiftID, ',' );
-          getline(geek, shf.lengthInMin, ',' );
+          getline(geek, shf.shift_id_, ',' );
+          getline(geek, shf.length_in_min_, ',' );
           while (geek){
-            string notFollow;
-            getline(geek, notFollow, ',');
-            shf.notFollowShift.push_back(notFollow);
+            string notfollow;
+            getline(geek, notfollow, ',');
+            shf.not_follow_shift_.push_back(notfollow);
           }
 
-          shifts.push_back(shf);
+          shifts_.push_back(shf);
           num_shifts++;
           }
         } while(reader != "SECTION_STAFF");       
-        
+        num_total_shifts_ = num_shifts;
       }
       
       if( reader == "SECTION_STAFF"){ cout<<"staff"<<endl;
@@ -161,35 +161,35 @@ void Input::load(string name){
           
           stringstream geek(reader);
           
-          getline(geek, stf.employeeID, ',' );
+          getline(geek, stf.employee_id_, ',' );
           
-          for (int i = 0;i<numTotalShifts_;i++){
+          for (int i = 0;i<num_total_shifts_;i++){
             string s;
             pair<string, string> p;
             getline(geek, s, '=' );
             p.first = s;
-            if (i!=numTotalShifts_-1){
+            if (i!=num_total_shifts_-1){
               getline(geek, s, '|' );
               p.second = s;
             } else {
               getline(geek, s, ',' );
               p.second = s;
             }
-            stf.maxShifts.push_back(p);
+            stf.max_shifts_.push_back(p);
           }
-          getline(geek, stf.maxTotalMinutes, ',' );
-          getline(geek, stf.minTotalMinutes, ',' );
-          getline(geek, stf.maxConsecutiveShifts, ',' );
-          getline(geek, stf.minConsecutiveShifts, ',' );
-          getline(geek, stf.minConsecutiveDaysOff, ',' );
-          getline(geek, stf.maxWeekends, ',' );
+          getline(geek, stf.max_total_minutes_, ',' );
+          getline(geek, stf.min_total_minutes_, ',' );
+          getline(geek, stf.max_consecutive_shifts_, ',' );
+          getline(geek, stf.min_consecutive_shifts_, ',' );
+          getline(geek, stf.min_consecutive_days_off_, ',' );
+          getline(geek, stf.max_weekends_, ',' );
 
-          staff.push_back(stf);
+          staff_.push_back(stf);
           num_staff++;
           }
 
         } while(reader != "SECTION_DAYS_OFF");
-               
+        num_total_staff_ = num_staff;       
       }
 
       if( reader == "SECTION_DAYS_OFF"){
@@ -207,16 +207,16 @@ void Input::load(string name){
           
           stringstream geek(reader);
           
-          getline(geek, dO.employeeID, ',' );
+          getline(geek, dO.employee_id_, ',' );
           string str;
 
           //str sendo posto de forma duplicada em dayIndex
           while(geek){
             getline(geek, str, ',' ); cout<<str<<endl;
-            dO.dayIndex.push_back(str);
+            dO.day_index_.push_back(str);
           }
 
-          daysoff.push_back(dO);
+          days_off_.push_back(dO);
           }
         } while(reader != "SECTION_SHIFT_ON_REQUESTS");   
         
@@ -240,12 +240,12 @@ void Input::load(string name){
             // Faca a sobrecarda do operador>>
             //geek >> r;
 
-            getline(geek, r.employeeID, ',' );
-            getline(geek, r.day, ',' );
-            getline(geek, r.shiftID, ',' );
-            getline(geek, r.weight, ',' );
+            getline(geek, r.employee_id_, ',' );
+            getline(geek, r.day_, ',' );
+            getline(geek, r.shift_id_, ',' );
+            getline(geek, r.weight_, ',' );
           }
-          shift_request.push_back(r);
+          shift_request_.push_back(r);
         }
         while(reader != "SECTION_SHIFT_OFF_REQUESTS");        
       }
@@ -267,12 +267,12 @@ void Input::load(string name){
             // Faca a sobrecarda do operador>>
             //geek >> r;
 
-            getline(geek, rr.employeeID, ',' );
-            getline(geek, rr.day, ',' );
-            getline(geek, rr.shiftID, ',' );
-            getline(geek, rr.weight, ',' );
+            getline(geek, rr.employee_id_, ',' );
+            getline(geek, rr.day_, ',' );
+            getline(geek, rr.shift_id_, ',' );
+            getline(geek, rr.weight_, ',' );
           }
-          shift_off_request.push_back(rr);
+          shift_off_request_.push_back(rr);
         }
         while(reader != "SECTION_COVER");        
       }
@@ -290,12 +290,12 @@ void Input::load(string name){
           }while(reader[0] == '#');
 
           stringstream geek(reader);
-          getline(geek, co.day, ',' );
-          getline(geek, co.shiftID, ',' );
-          getline(geek, co.requirement, ',' );
-          getline(geek, co.weightForUnder, ',' );
-          getline(geek, co.weightForOver, ',' );          
-          cover.push_back(co);
+          getline(geek, co.day_, ',' );
+          getline(geek, co.shift_id_, ',' );
+          getline(geek, co.requirement_, ',' );
+          getline(geek, co.weight_for_under_, ',' );
+          getline(geek, co.weight_for_over_, ',' );          
+          cover_.push_back(co);
         
        }
       }
