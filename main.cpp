@@ -8,11 +8,11 @@ int main(int argc, char* argv[]) {
   in.load("Instance1.txt");
   std::cout << "O horizonte eh "<<in.horizonGet()<<endl;
 
-  for(unsigned i=0; i < in.shift_request.size(); i++){
-    cout<<in.shift_request[i].employeeID<<","
-    <<in.shift_request[i].day<<","
-    <<in.shift_request[i].shiftID<<","
-    <<in.shift_request[i].weight<<endl;
+  for(unsigned i=0; i < in.shift_request_.size(); i++){
+    cout<<in.shift_request_[i].employee_id_<<","
+    <<in.shift_request_[i].day_<<","
+    <<in.shift_request_[i].shift_id_<<","
+    <<in.shift_request_[i].weight_<<endl;
   }
   return 0;
 }
