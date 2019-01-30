@@ -21,52 +21,52 @@ using namespace std;
 
 class Shift {
 public:
-  string shiftID;
-  string lengthInMin;
-  vector <string> notFollowShift;
+  string shift_id_;
+  string length_in_min_;
+  vector <string> not_follow_shift_;
 };
 
 class Staff {
 public:
-  string employeeID;
-  vector <pair<string, string> > maxShifts;
-  string maxTotalMinutes;
-  string minTotalMinutes;
-  string maxConsecutiveShifts;
-  string minConsecutiveShifts;
-  string minConsecutiveDaysOff; 
-  string maxWeekends;
+  string employee_id_;
+  vector <pair<string, string> > max_shifts_;
+  string max_total_minutes_;
+  string min_total_minutes_;
+  string max_consecutive_shifts_;
+  string min_consecutive_shifts_;
+  string min_consecutive_days_off_; 
+  string max_weekends_;
 };
 
 class DaysOff {
 public:
-  string employeeID;
-  vector <string> dayIndex;
+  string employee_id_;
+  vector <string> day_index_;
 };
 
 class OnRequest {
 public:
-   string employeeID;
-   string day;
-   string shiftID;
-   string weight;
+   string employee_id_;
+   string day_;
+   string shift_id_;
+   string weight_;
 };
 
 class OffRequest {
 public:
-   string employeeID;
-   string day;
-   string shiftID;
-   string weight;
+   string employee_id_;
+   string day_;
+   string shift_id_;
+   string weight_;
 };
 
 class Cover {
 public:
-  string day;
-  string shiftID;
-  string requirement;
-  string weightForUnder;
-  string weightForOver;
+  string day_;
+  string shift_id_;
+  string requirement_;
+  string weight_for_under_;
+  string weight_for_over_;
 };
 
 class Input {
@@ -77,8 +77,8 @@ public:
   //Variavel
   int horizon_;
 
-  int numTotalShifts_;
-  int numTotalStaff_;
+  int num_total_shifts_;
+  int num_total_staff_;
 
   // Funcao de recuperacao de informacoes
   int horizonGet(){
@@ -103,13 +103,13 @@ public:
 		   pi = 3.141592,
 		   rrr = 6378.388;
 
-  vector<OnRequest> shift_request;
-  vector<Shift> shifts;
-  vector<Staff> staff;
-  vector<DaysOff> daysoff;
+  vector<OnRequest> shift_request_;
+  vector<Shift> shifts_;
+  vector<Staff> staff_;
+  vector<DaysOff> days_off_;
   vector<string> breakString(string s, char splitChar);
-  vector<OffRequest> shift_off_request;
-  vector <Cover> cover;
+  vector<OffRequest> shift_off_request_;
+  vector <Cover> cover_;
   
   ////
 
