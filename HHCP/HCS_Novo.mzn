@@ -12,13 +12,15 @@ set of int: Enfermeiras = 1..nbVehi; %rotas = numero de enfermeiras
 int: nbServi;
 set of int: Services = 1..nbServi; %conjunto de servicos
 
-% travel times between locations 
+% travel times between locations
+%2d array 
 array[Locations,Locations] of int: d; 
 
 %qualification of staff members
 array[Enfermeiras,Services] of 0..1: a;
 
 % successor variables
+%proximo local a ser visitado pela enfermeira
 %array[Locations] of var 1..nbNodes+1: succ;
 array[Enfermeiras,Locations] of var 1..nbNodes+1: prox; 
 
@@ -34,20 +36,28 @@ var float: obj; %onde está guardado o calculo de distancia
 var int: Z;  %onde está guardado o calculo de atendimentos
 
 %Inicio do serviço s ao patient i realizado pela enfermeira v
+%3Darray com unidades de tempo
+% DECISION VARIABLE 
 array[Locations,Enfermeiras,Services] of var int: t;
 
 %Janela de tempo
+%tempo de começo e fim dos serviços nessas locações
 array[Locations] of 0..480: e;
 array[Locations] of 0..600: l;
 
 %1 se a enfermeira vai de i para j realizar o serviço s
+% 4D array
+% DECISION VARIABLE
 array[Locations,Locations,Enfermeiras,Services] of var 0..1: x; 
 
+% DECISION VARIABLE
+%distancia total percorrida?
 array[Enfermeiras] of var float: rota; %calculo dos pesos do caminho
 
+% DECISION VARIABLE
 array[Enfermeiras] of var 0.0..480.0: dayWl; %tempo total de servico diario
 
-
+% DECISION VARIABLE
 array[Enfermeiras] of var 0.0..480.0: servico; %tempo total de serviço de cada enfermeira
 
 %tempo de cada servico(set) prestado a cada paciente(lines) por cada enfermeira(column)
