@@ -63,12 +63,15 @@ array[Enfermeiras] of var 0.0..480.0: servico; %tempo total de serviço de cada 
 %tempo de cada servico(set) prestado a cada paciente(lines) por cada enfermeira(column)
 array[Locations, Enfermeiras, Services] of int: p;
 
+% DECISION VARIABLE
 array[Enfermeiras] of var int: C; %visitas por enfermeiras
 
 %distancias
+%distancia total percorrida - a ser minimizada
 obj = sum(r in Enfermeiras)(rota[r]);     
 
 %atendimentos
+%numero total de atendimentos a ser maximizado
 Z = sum(r in Enfermeiras)(C[r]);
 
 solve maximize Z;
