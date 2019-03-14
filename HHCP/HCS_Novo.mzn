@@ -55,6 +55,7 @@ array[Locations,Locations,Enfermeiras,Services] of var 0..1: x;
 array[Enfermeiras] of var float: rota; %calculo dos pesos do caminho
 
 % DECISION VARIABLE
+%é uma média?
 array[Enfermeiras] of var 0.0..480.0: dayWl; %tempo total de servico diario
 
 % DECISION VARIABLE
