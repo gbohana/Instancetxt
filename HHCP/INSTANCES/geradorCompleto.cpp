@@ -6,9 +6,9 @@
 #include<sstream>
 #include<cmath>
 using namespace std;
-//#ifndef M_PI
-//#    define M_PI 3.14159265358979323846
-//#endif
+#ifndef M_PI
+#    define M_PI 3.14159265358979323846
+#endif
 
 // for((i = 1; i<11; i++)); do ./a.out 40 $i; done
 // ./a.out
@@ -44,6 +44,12 @@ vector<string> split (string s, string delimiter) {
 int main(int argc, char* argv[]){
 
     srand(time(0));
+
+    if(argc < 3){
+        cout<<"Informe:\n - numero de pacientes [10,20,30,40];\n - indice da instancia [1,2,3,4,5,6,7,8,9,10]."<<endl;
+        cout<<"Exemplo: ./a.out 10 1"<<endl;
+        return 0;
+    }
 
     string argv1(argv[1]);
     string argv2(argv[2]);
@@ -217,8 +223,10 @@ int main(int argc, char* argv[]){
 	}
 
     for (int i = 0; i < nbNodes; i++)
-		for (int j = 0; j < 5; j++)
-            rs[i][j][rand()%nbServi] = 1;
+		for (int j = 0; j < 5; j++){
+            rs[i][rand()%nbServi] = "true";
+            break;
+        }
 
 	saida << "\nrs = \n[|";
 	for (int i = 0; i < nbNodes; i++)
@@ -257,7 +265,7 @@ int main(int argc, char* argv[]){
     }
     saida<<"|];"<<endl;
 
-    saida<<"coord=[ ";
+    saida<<"\ncoord=[ ";
     for(int i=0; i < nbNodes; i++){
         saida<<"("<<local[i].first<<",";
         saida<<local[i].second<<"), ";
