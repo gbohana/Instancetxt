@@ -6,6 +6,9 @@
 #include<sstream>
 #include<cmath>
 using namespace std;
+//#ifndef M_PI
+//#    define M_PI 3.14159265358979323846
+//#endif
 
 // for((i = 1; i<11; i++)); do ./a.out 40 $i; done
 // ./a.out
@@ -237,13 +240,6 @@ int main(int argc, char* argv[]){
     local[0].second = 0;
     local[nbNodes-1] = local[0];
 
-    saida<<"coord=[ ";
-    for(int i=0; i < nbNodes; i++){
-            saida<<"("<<local[i].first<<",";
-            saida<<local[i].second<<"), ";
-    }
-    saida<< "];\n"<<endl;
-
 
     for(int i=0; i < nbNodes; i++){
         for(int j=0; j < nbNodes; j++){
@@ -261,8 +257,13 @@ int main(int argc, char* argv[]){
     }
     saida<<"|];"<<endl;
 
+    saida<<"coord=[ ";
     for(int i=0; i < nbNodes; i++){
+        saida<<"("<<local[i].first<<",";
+        saida<<local[i].second<<"), ";
         cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
     }
+    saida<< "];\n"<<endl;
+
 
 }
