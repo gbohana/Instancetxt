@@ -77,7 +77,7 @@ Z = sum(r in Enfermeiras)(C[r]);
 
 var 0.0..480.0: differ = max(dayWl) - min(dayWl);
 
-solve maximize Z + differ;
+solve minimize -Z + differ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     Constraints                                                 %
