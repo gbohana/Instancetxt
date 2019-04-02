@@ -68,14 +68,16 @@ array[Locations, Enfermeiras, Services] of int: p;
 array[Enfermeiras] of var int: C; %visitas por enfermeiras
 
 %distancias
-%distancia total percorrida - a ser minimizada
+%distancia total percorrida - a ser minimizada - NAO UTILIZADO 
 obj = sum(r in Enfermeiras)(rota[r]);     
 
 %atendimentos
 %numero total de atendimentos a ser maximizado
 Z = sum(r in Enfermeiras)(C[r]);
 
-solve maximize Z;
+var 0.0..480.0: differ = max(dayWl) - min(dayWl);
+
+solve maximize Z + differ;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     Constraints                                                 %
