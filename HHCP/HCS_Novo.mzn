@@ -42,8 +42,8 @@ array[Locations,Enfermeiras,Services] of var int: t;
 
 %Janela de tempo
 %tempo de começo e fim dos serviços nessas locações
-array[Locations] of 0..480: e;
-array[Locations] of 0..600: l;
+array[Services, Locations] of 0..480: e;
+array[Services, Locations] of 0..600: l;
 
 %1 se a enfermeira vai de i para j realizar o serviço s
 % 4D array
@@ -75,9 +75,16 @@ obj = sum(r in Enfermeiras)(rota[r]);
 %numero total de atendimentos a ser maximizado
 Z = sum(r in Enfermeiras)(C[r]);
 
-var 0.0..480.0: differ = max(dayWl) - min(dayWl);
+var 0.0..480.0: maximum;
 
-solve minimize -Z + differ;
+constraint 
+  forall(r,s in Enfermeiras where r < s)(
+    maximum = max(dayWl[r],dayWl[s])
+  );
+  
+%var 0.0..480.0: differ =  min([dayWl[f] | f in Enfermeiras]);
+
+solve minimize -Z + maximum;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     Constraints                                                 %
@@ -97,12 +104,12 @@ constraint forall(r in Enfermeiras)( path(row(prox,r), start, end) );
 
 constraint
   forall(i in Locations, r in Enfermeiras, s in Services)(
-    t[i,r,s] >= e[i]
+    t[i,r,s] >= e[s, i]
   );
   
 constraint 
   forall(i in Locations, r in Enfermeiras, s in Services)(
-    t[i,r,s] <= l[i] 
+    t[i,r,s] <= l[s, i] 
   );  
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
