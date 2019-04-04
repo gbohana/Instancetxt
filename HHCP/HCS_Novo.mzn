@@ -75,16 +75,18 @@ obj = sum(r in Enfermeiras)(rota[r]);
 %numero total de atendimentos a ser maximizado
 Z = sum(r in Enfermeiras)(C[r]);
 
-var 0.0..480.0: maximum;
+var float: maximum = dayWl[1];
+var float: minimum = dayWl[1];
+constraint forall(r,s in Enfermeiras where r<s) (if dayWl[r]>dayWl[s] then maximum = dayWl[r] endif);
 
-constraint 
-  forall(r,s in Enfermeiras where r < s)(
-    maximum = max(dayWl[r],dayWl[s])
-  );
-  
+constraint forall(r,s in Enfermeiras where r<s) (if dayWl[r]<dayWl[s] then minimum = dayWl[r] endif);
+
+
+%constraint maximum = max(r in Enfermeiras)(dayWl[r]); % max e min dão runtime error em empty arrays
+
 %var 0.0..480.0: differ =  min([dayWl[f] | f in Enfermeiras]);
 
-solve minimize -Z + maximum;
+solve minimize -Z + (maximum-minimum);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     Constraints                                                 %
