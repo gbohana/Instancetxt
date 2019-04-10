@@ -51,8 +51,8 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    string argv1(argv[1]);
-    string argv2(argv[2]);
+    string argv1 = "10"(argv[1]);
+    string argv2 = "1"(argv[2]);
 
     string output_filename("Instanz_HCSRP_"+argv1+"_"+argv2+".dzn");
     ofstream saida(output_filename.c_str(),ios::out);
@@ -264,6 +264,7 @@ int main(int argc, char* argv[]){
         saida<<endl;
     }
     saida<<"|];"<<endl;
+    cout<<"aqui"<<endl;
 
     saida<<"\ncoord=[ ";
     for(int i=0; i < nbNodes; i++){
@@ -271,7 +272,4 @@ int main(int argc, char* argv[]){
         saida<<local[i].second<<"), ";
         cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
     }
-    saida<< "];\n"<<endl;
-
-
 }
