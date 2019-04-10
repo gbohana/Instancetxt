@@ -223,9 +223,9 @@ int main(int argc, char* argv[]){
 	}
 
     for (int i = 0; i < nbNodes; i++)
-		for (int j = 0; j < 5; j++){
+		for (int j = 0; j < 3; j++){
             rs[i][rand()%nbServi] = "true";
-            break;
+            //break;
         }
 
 	saida << "\nrs = \n[|";
@@ -268,8 +268,8 @@ int main(int argc, char* argv[]){
 
     saida<<"\ncoord=[ ";
     for(int i=0; i < nbNodes; i++){
-        saida<<"("<<local[i].first<<",";
-        saida<<local[i].second<<"), ";
+        saida<<"|"<<local[i].first<<",";
+        saida<<local[i].second<<",| ";
         cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
     }
 }
