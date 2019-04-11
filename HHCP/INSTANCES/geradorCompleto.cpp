@@ -272,4 +272,17 @@ int main(int argc, char* argv[]){
         saida<<local[i].second<<",| ";
         cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
     }
+
+    //um par de serviços é selecionado para ter precedência
+    int prec[nbServi][nbServi];
+    for(int i=0; i < nbNodes; i++){
+        for(int j=0; j < nbNodes; j++){
+            prec[i][j] = 0;
+        }
+    }
+    int a = rand()%nbServi;
+    int b = rand()%nbServi;
+    if (a!=b){
+        prec[a][b] = 1;
+    }
 }
