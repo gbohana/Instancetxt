@@ -266,12 +266,13 @@ int main(int argc, char* argv[]){
     saida<<"|];"<<endl;
     cout<<"aqui"<<endl;
 
+    /*
     saida<<"\ncoord=[ ";
     for(int i=0; i < nbNodes; i++){
         saida<<"|"<<local[i].first<<",";
         saida<<local[i].second<<",| ";
         cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
-    }
+    }*/
 
     //um par de serviços é selecionado para ter precedência
     int prec[nbServi][nbServi];
@@ -280,9 +281,26 @@ int main(int argc, char* argv[]){
             prec[i][j] = 0;
         }
     }
+
     int a = rand()%nbServi;
     int b = rand()%nbServi;
     if (a!=b){
         prec[a][b] = 1;
+    } else {
+        while (a!=b){
+            int a = rand()%nbServi;
+            int b = rand()%nbServi;
+        }
+        prec[a][b] = 1;
     }
+
+    saida<<"\nprec=[";
+    for(int i=0; i < nbServi; i++){
+        saida<<"|";
+        for(int j=0; j < nbServi; j++){
+            saida<<prec[i][j]<<", ";
+        }
+        saida<<endl;
+    }
+    saida<<"|];"<<endl;
 }
