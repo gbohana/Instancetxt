@@ -45,16 +45,16 @@ p = array3d(1..nbNodes,1..nbVehi,1..nbServi,
 
 rs = 
 [|true,true,true,true,
- |true,true,true,false,
- |true,false,true,true,
- |true,true,true,false,
- |false,true,false,true,
- |true,false,true,true,
- |false,false,true,true,
- |false,true,false,true,
- |true,false,true,true,
- |false,true,false,true,
- |true,true,true,false,
+ |false,false,true,false,
+ |true,false,false,false,
+ |false,true,false,false,
+ |false,false,false,true,
+ |false,false,true,false,
+ |false,false,true,false,
+ |false,true,false,false,
+ |true,false,false,false,
+ |false,false,false,true,
+ |false,true,false,false,
  |true,true,true,true,
  |];
 
@@ -73,4 +73,3 @@ d=[|0, 13, 24, 14, 6, 11, 12, 8, 0, 24, 7, 0,
 |];
 
 %coord=[ |0,0,| -12,-7, |-14,20, |-14,-4, |2,6,| 10,-6, |-10,7, |-8,3, |0,0, |17,-18, |0,-7, |0,0,| ];
-
