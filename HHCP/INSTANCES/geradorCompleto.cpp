@@ -51,8 +51,8 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    string argv1 = "10"(argv[1]);
-    string argv2 = "1"(argv[2]);
+    string argv1(argv[1]);
+    string argv2(argv[2]);
 
     string output_filename("Instanz_HCSRP_"+argv1+"_"+argv2+".dzn");
     ofstream saida(output_filename.c_str(),ios::out);
@@ -90,12 +90,12 @@ int main(int argc, char* argv[]){
     saida<<"nbNodes = "<<nbNodes<<";"<<endl;
     saida<<"nbVehi = "<<nbVehi<<";"<<endl;
     saida<<"nbServi = "<<nbServi<<";"<<endl;
-    saida<<"numdays = "<<5<<";"<<endl;
+    //saida<<"numdays = "<<5<<";"<<endl;
 
-    int e[5][nbNodes];
-    int l[5][nbNodes];
+    int e[nbServi][nbNodes];
+    int l[nbServi][nbNodes];
 
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < nbServi; i++)
         for (int j = 0; j < nbNodes; j++)
         {
             if(j == 0 || j == nbNodes-1){
@@ -109,7 +109,7 @@ int main(int argc, char* argv[]){
 
     // Inicio da impressao do e
     saida<<"\ne = \n [|";
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < nbServi; i++)
     {
         for (int j = 0; j < nbNodes; j++)
         {
@@ -123,7 +123,7 @@ int main(int argc, char* argv[]){
 
     // Inicio da impressao do l
     saida<<"l = \n [|";
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < nbServi; i++)
     {
         for (int j = 0; j < nbNodes; j++)
             saida<<setw(4)<< l[i][j]<<",";
@@ -178,7 +178,7 @@ int main(int argc, char* argv[]){
                 {
                     //Calcular a menor janela de tempo - minTimeWindow
                     int minTimeWindow = 480;
-                    for(int dia = 0; dia < 5; dia++){
+                    for(int dia = 0; dia < nbServi; dia++){
                         minTimeWindow = min(minTimeWindow,l[dia][i]-e[dia][i]);
                     }
                     p[i][j][k] = min(10+rand()%(int(double(minTimeWindow)*((11-sequencia)/10.0))),minTimeWindow);
@@ -225,7 +225,7 @@ int main(int argc, char* argv[]){
     for (int i = 0; i < nbNodes; i++)
 		for (int j = 0; j < 3; j++){
             rs[i][rand()%nbServi] = "true";
-            //break;
+            break;
         }
 
 	saida << "\nrs = \n[|";
@@ -264,15 +264,15 @@ int main(int argc, char* argv[]){
         saida<<endl;
     }
     saida<<"|];"<<endl;
-    cout<<"aqui"<<endl;
-
-    /*
+/*
     saida<<"\ncoord=[ ";
     for(int i=0; i < nbNodes; i++){
         saida<<"|"<<local[i].first<<",";
         saida<<local[i].second<<",| ";
         cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
-    }*/
+    }
+    saida<< "];\n"<<endl;
+
 
     //um par de serviços é selecionado para ter precedência
     int prec[nbServi][nbServi];
@@ -302,5 +302,6 @@ int main(int argc, char* argv[]){
         }
         saida<<endl;
     }
-    saida<<"|];"<<endl;
+    saida<<"|];"<<endl;*/
+
 }
