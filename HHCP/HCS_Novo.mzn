@@ -75,8 +75,8 @@ obj = sum(r in Enfermeiras)(rota[r]);
 %numero total de atendimentos a ser maximizado
 Z = sum(r in Enfermeiras)(C[r]);
 
-var float: maximum = dayWl[1];
-var float: minimum = dayWl[1];
+var 0.0..480.0: maximum;
+var 0.0..480.0: minimum;
 constraint forall(r,s in Enfermeiras where r<s) (if dayWl[r]>dayWl[s] then maximum = dayWl[r] endif);
 
 constraint forall(r,s in Enfermeiras where r<s) (if dayWl[r]<dayWl[s] then minimum = dayWl[r] endif);
@@ -86,7 +86,7 @@ constraint forall(r,s in Enfermeiras where r<s) (if dayWl[r]<dayWl[s] then minim
 
 %var 0.0..480.0: differ =  min([dayWl[f] | f in Enfermeiras]);
 
-solve minimize -Z + (maximum-minimum);
+solve minimize -Z + maximum-minimum;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     Constraints                                                 %
@@ -211,18 +211,19 @@ output["Visitas = \(Z) \n"];
 
 output["Distancia = \(obj)\n"];
 
-%output["day = \(dayWl)\n"];
+output["Dist total= \(rota)\n"];
 
-%output["pacientes = \(C) \n"];
+output["Tempo total= \(dayWl)\n"];
 
-%output["servico = \(servico) \n"];
+output["Maximum e minimum:\(maximum) , \(minimum)\n"];
 
 % output["path = \n"];
 % output[show(row(prox,r))++ if r == nbVehi then "" else "\n " endif | r in Enfermeiras ];
 % output["\n"];
 
   output[
-      "\(i),\(j),\(r),\(d[i,j]),\(s),\(x[i,j,r,s])" ++ "\n"
+      if fix(x[i,j,r,s])=1 then
+      "\(i),\(j),\(r),\(d[i,j]),\(s),\(x[i,j,r,s])" ++ "\n" else "" endif
       | 
-      r in Enfermeiras, i,j in Locations, s in Services 
+      r in Enfermeiras, i,j in Locations, s in Services
      ];
