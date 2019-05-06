@@ -86,7 +86,7 @@ constraint forall(r,s in Enfermeiras where r<s) (if dayWl[r]<dayWl[s] then minim
 
 %var 0.0..480.0: differ =  min([dayWl[f] | f in Enfermeiras]);
 
-solve minimize -Z + maximum-minimum;
+solve minimize -Z + (maximum-minimum);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     Constraints                                                 %
@@ -155,6 +155,12 @@ constraint
   forall(i in Visits, r in Enfermeiras)(
     sum(j in Locations, s in Services)( x[i,j,r,s] ) == sum(j in Locations, s in Services)(x[j,i,r,s]) 
   );  
+ 
+% nodes 1 e nbNodes, representando o hospital, só podem ser, respectivavemente, de saída e de chegada  
+constraint 
+  forall(i, j in Locations, r in Enfermeiras, s in Services) (
+    x[nbNodes, j, r, s] + x[i, 1, r, s] = 0
+  );
         
 %7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
 % constraint 7 - cada serviço é realizado por uma enfermeira qualificada                               %
@@ -189,7 +195,13 @@ constraint
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 constraint forall(i in Locations, j in Visits, r in Enfermeiras, s in Services)( x[i,j,r,s] <= a[r,s] * rs[j,s]  );
-   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%constraint forall();
+    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %      Funções objetivo       %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -225,5 +237,7 @@ output["Maximum e minimum:\(maximum) , \(minimum)\n"];
       if fix(x[i,j,r,s])=1 then
       "\(i),\(j),\(r),\(d[i,j]),\(s),\(x[i,j,r,s])" ++ "\n" else "" endif
       | 
-      r in Enfermeiras, i,j in Locations, s in Services
+      r in Enfermeiras, i, j in Locations, s in Services
      ];
+
+% j != 1 e i!= nbNodes
