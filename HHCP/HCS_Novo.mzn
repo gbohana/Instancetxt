@@ -161,7 +161,12 @@ constraint
   forall(i, j in Locations, r in Enfermeiras, s in Services) (
     x[nbNodes, j, r, s] + x[i, 1, r, s] = 0
   );
-        
+
+constraint
+  sum(r in Enfermeiras, j in Locations, s in Services)(x[1,j,r,s]) <= nbVehi ;
+
+
+                        
 %7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
 % constraint 7 - cada serviço é realizado por uma enfermeira qualificada                               %
 % CONTRIBUIÇÃO: esta restrição é uma contribuição do trabalho, lembre-se de colocar isso no seu texto. %
@@ -184,10 +189,12 @@ constraint
 
 
 %conta quantas visitas foram realizadas por cada enfermeira em cada dia
+%não conta a primeira visita de cada enfermeira partindo do hospital porque começa com i=2 (set Visits)
+%mas conta o retorno x->12 como uma visita - OK
 constraint 
     forall(r in Enfermeiras)
           (C[r] = sum(i in Visits, s in Services)
-                        (x[i,prox[r,i],r,s]) 
+                        (trace("bool = \(x[i,prox[r,i],r,s]), \(i), \(prox[r,i])\n", x[i,prox[r,i],r,s]) ) 
            );                     
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,7 +242,24 @@ output["Maximum e minimum:\(maximum) , \(minimum)\n"];
 
   output[
       if fix(x[i,j,r,s])=1 then
-      "\(i),\(j),\(r),\(d[i,j]),\(s),\(x[i,j,r,s])" ++ "\n" else "" endif
+             if r = 1 then
+               "\\draw [black,->] (P\(i)) edge (P\(j));" ++ "\n" 
+             else 
+               if r= 2 then
+                 "\\draw [red,->] (P\(i)) edge (P\(j));" ++ "\n" 
+               else 
+                 if r = 3 then
+                   "\\draw [blue,->] (P\(i)) edge (P\(j));" ++ "\n" 
+                 else 
+                   if r = 4 then
+                     "\\draw [yellow,->] (P\(i)) edge (P\(j));" ++ "\n" 
+                   else "\\draw [grey,->] (P\(i)) edge (P\(j)); \(r)" ++ "\n" endif
+                 endif
+                endif
+             endif
+      else 
+        "" 
+      endif
       | 
       r in Enfermeiras, i, j in Locations, s in Services
      ];
