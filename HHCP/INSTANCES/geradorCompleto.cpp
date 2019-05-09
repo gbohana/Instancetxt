@@ -239,6 +239,7 @@ int main(int argc, char* argv[]){
     }
 	saida<< "];\n"<<endl;
 
+    //MUDAR AQUI!!!
     int matriz[nbNodes][nbNodes];
     vector<pair<int,int> > local;
     for(int i=0; i < nbNodes; i++)
@@ -264,16 +265,8 @@ int main(int argc, char* argv[]){
         saida<<endl;
     }
     saida<<"|];"<<endl;
-/*
-    saida<<"\ncoord=[ ";
-    for(int i=0; i < nbNodes; i++){
-        saida<<"|"<<local[i].first<<",";
-        saida<<local[i].second<<",| ";
-        cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
-    }
-    saida<< "];\n"<<endl;
 
-
+   // /*
     //um par de serviços é selecionado para ter precedência
     int prec[nbServi][nbServi];
     for(int i=0; i < nbNodes; i++){
@@ -282,17 +275,26 @@ int main(int argc, char* argv[]){
         }
     }
 
-    int a = rand()%nbServi;
-    int b = rand()%nbServi;
-    if (a!=b){
-        prec[a][b] = 1;
+    int g = rand()%nbServi;
+    int f = rand()%nbServi;
+    if (g!=f){
+        prec[g][f] = 1;
     } else {
-        while (a!=b){
-            int a = rand()%nbServi;
-            int b = rand()%nbServi;
+        while (g!=f){
+            int g = rand()%nbServi;
+            int f = rand()%nbServi;
         }
-        prec[a][b] = 1;
+        prec[g][f] = 1;
     }
+
+    //coordenadas para a visualização dos resultados
+    saida<<"\ncoord=[ ";
+    for(int i=0; i < nbNodes; i++){
+        saida<<"("<<local[i].first<<",";
+        saida<<local[i].second<<"), ";
+        cout<<"("<<local[i].first<<","<<local[i].second<<")"<<endl;
+    }
+    saida<< "];\n"<<endl;
 
     saida<<"\nprec=[";
     for(int i=0; i < nbServi; i++){
@@ -302,6 +304,7 @@ int main(int argc, char* argv[]){
         }
         saida<<endl;
     }
-    saida<<"|];"<<endl;*/
+    saida<<"|];"<<endl;
+    // */
 
 }
