@@ -244,12 +244,23 @@ int main(int argc, char* argv[]){
     vector<pair<int,int> > local;
     for(int i=0; i < nbNodes; i++)
         local.push_back(makeCoordenada());
-
+	
     local[0].first = 0;
     local[0].second = 0;
     local[nbNodes-1] = local[0];
-
-
+    
+    //loop para garantir distância mínima de 5 entre as localizações
+    for(int i=0; i<nbNodes; i++){
+    	for(int j=0;j<nbNodes;j++){
+		if(i!=j && distancia(local[i],local[j]) <=5){
+			while (distancia(local[i],local[j])){
+				local[i] = makeCoordenada();
+			}
+		} 
+	}
+    }
+	
+	
     for(int i=0; i < nbNodes; i++){
         for(int j=0; j < nbNodes; j++){
             matriz[i][j] = distancia(local[i],local[j]);
