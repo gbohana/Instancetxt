@@ -242,14 +242,17 @@ int main(int argc, char* argv[]){
     //DEBUGAR AQUI!!!
     int matriz[nbNodes][nbNodes];
     vector<pair<int,int> > local;
+    pair<int,int> origem;
+    origem.first = 0;
+    origem.second = 0;
     /*for(int i=0; i < nbNodes; i++)
         local.push_back(makeCoordenada());
     	*/
     for(int i=0; i < nbNodes; i++) {
         pair<int, int> loc = makeCoordenada();
 	   if(i>0){
-	   	for (/*iterar em local*/){
-		   	while (distancia(loc,local[j])<=5){
+	   	for (int j = 0; j < local.size(); j++){
+		   	while (distancia(loc,local[j])<=5 && distancia(loc,origem)<=5){
 				loc = makeCoordenada();
 			}
 		 
@@ -289,7 +292,7 @@ int main(int argc, char* argv[]){
 
 
     //um par de serviços é selecionado para ter precedência
-    int prec[nbServi][nbServi];
+    /*int prec[nbServi][nbServi];
     for(int i=0; i < nbNodes; i++){
         for(int j=0; j < nbNodes; j++){
             prec[i][j] = 0;
