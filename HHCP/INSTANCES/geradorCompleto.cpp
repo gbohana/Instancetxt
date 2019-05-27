@@ -46,7 +46,7 @@ int main(int argc, char* argv[]){
     srand(time(0));
 
     if(argc < 3){
-        cout<<"Informe:\n - numero de pacientes [10,20,30,40];\n - indice da instancia [1,2,3,4,5,6,7,8,9,10]."<<endl;
+        cout<<"Informe:\n - numero de pacientes [10,20,30];\n - indice da instancia [1-30]."<<endl;
         cout<<"Exemplo: ./a.out 10 1"<<endl;
         return 0;
     }
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]){
     ofstream saida(output_filename.c_str(),ios::out);
     int nbNodes = 12;
     int nbVehi = 3;
-    int nbServi = 6;
+    int nbServi = 5;
     int sequencia = atoi(argv[2]);
 
     switch (atoi(argv[1]))
@@ -66,22 +66,14 @@ int main(int argc, char* argv[]){
         case 10:
              nbNodes = 12;
              nbVehi = 3;
-             nbServi = 4;
             break;
         case 20:
             nbNodes=22;
             nbVehi=5;
-            nbServi = 5;
             break;
         case 30:
              nbNodes = 32;
              nbVehi = 10;
-             nbServi = 6;
-            break;
-        case 40:
-             nbNodes = 42;
-             nbVehi = 10;
-             nbServi = 7;
             break;
         default:
             break;
@@ -90,7 +82,6 @@ int main(int argc, char* argv[]){
     saida<<"nbNodes = "<<nbNodes<<";"<<endl;
     saida<<"nbVehi = "<<nbVehi<<";"<<endl;
     saida<<"nbServi = "<<nbServi<<";"<<endl;
-    //saida<<"numdays = "<<5<<";"<<endl;
 
     int e[nbServi][nbNodes];
     int l[nbServi][nbNodes];
@@ -103,7 +94,7 @@ int main(int argc, char* argv[]){
                 l[i][j] = 480;
             }else{
             e[i][j] = rand()%481;
-            l[i][j] = e[i][j]+60+rand()%61;
+            l[i][j] = e[i][j]+30+rand()%31;
             }
         }
 
@@ -133,7 +124,8 @@ int main(int argc, char* argv[]){
     // Fim da impressao do l
 
 
-    // for( sequencia = 1; sequencia <= 10; sequencia++)    {
+    // sequencia = segundo argumento
+    //DESVINCULAR VALORES DE a[][] DO NO DE SEQUENCIA E COLOCÁ-LOS EM FUNÇÃO DE DENSIDADE DE SERVIÇOS!!
 
         int a[nbVehi][nbServi];
         int minimo = min(nbVehi,nbServi);
@@ -152,6 +144,24 @@ int main(int argc, char* argv[]){
                 }
             }
         }
+
+
+        /*int densidade = 0.1 * nbVehi;
+        for(int i = 0; i < nbVehi; i++)
+        {
+            for(int j = 0; j < nbServi; j++)
+            {
+                a[i][j] = 0;
+            }
+        }
+        if (densidade == 0)
+            densidade = 1;
+
+        for (int i = 0; i < densidade; i++){
+            for(int j =0; j<nbServi; j++){
+                    a[rand()%nbVehi][j] = 1;
+            }
+        }*/
 
         // Inicio da impressao da tabela a
         saida<<"\na = \n [|";
@@ -178,10 +188,12 @@ int main(int argc, char* argv[]){
                 {
                     //Calcular a menor janela de tempo - minTimeWindow
                     int minTimeWindow = 480;
-                    for(int dia = 0; dia < nbServi; dia++){
-                        minTimeWindow = min(minTimeWindow,l[dia][i]-e[dia][i]);
+                    for(int serv = 0; serv < nbServi; serv++){
+                        minTimeWindow = min(minTimeWindow,l[serv][i]-e[serv][i]);
                     }
-                    p[i][j][k] = min(10+rand()%(int(double(minTimeWindow)*((11-sequencia)/10.0))),minTimeWindow);
+                    //p[i][j][k] = min(10+rand()%(int(double(minTimeWindow)*((11-sequencia)/10.0))),minTimeWindow);
+                    p[i][j][k] = min(5+rand()%25,minTimeWindow);
+                
                 }
 
             }
