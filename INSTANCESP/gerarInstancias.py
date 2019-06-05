@@ -8,5 +8,7 @@ x = 0
 with open('argumentos.txt','r') as f:
     for line in f:
         for x in range(30):
-            subprocess.Popen([program]+line.split())
+            l = line.split()
+            l.append(str(x))
+            subprocess.Popen([program]+l)
 
