@@ -47,16 +47,17 @@ int main(int argc, char* argv[]){
 
     if(argc < 3){
         cout<<"Informe:\n - numero de veiculos [3, 5 ou 10];\n - numero de pacientes [10,20,30];"<<endl;
-        cout<<" - densidade de serviço [0-10]."<<endl;
-        cout<<"Exemplo: ./a.out 10 1"<<endl;
+        cout<<" - densidade de serviço [0-10];\n - numero de sequencia [0-29]"<<endl;
+        cout<<"Exemplo: ./a.out 3 10 0 1"<<endl;
         return 0;
     }
 
     string argv1(argv[1]);
     string argv2(argv[2]);
     string argv3(argv[3]);
+    string argv4(argv[4]);
 
-    string output_filename("Instanz_HCSRP_"+argv1+"_"+argv2+"_"+argv3+".dzn");
+    string output_filename("Instanz_HCSRP_"+argv1+"_"+argv2+"_"+argv3+"_"+argv4+".dzn");
     ofstream saida(output_filename.c_str(),ios::out);
     int nbNodes = atoi(argv[2]) + 2;
     int nbVehi = atoi(argv[1]);
