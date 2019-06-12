@@ -1,24 +1,37 @@
-import os
-import subprocess
 
-#for loop pra executar (3 x 3 x 11) x 30 vezes
+"run vw with various bits settings, save reported losses to a csv file"
+"subprocess.check_output() version"
+import re
+import csv
+import subprocess
+import os
 
 path = '/home/gabriela/INSTANCES FINAL/'
+output_file = '/home/gabriela/NurseRostering/HHCP/Geradores/res.csv'
+cmd = './MiniZincIDE.sh HCS_Novo.mzn'
 program = "MiniZincIDE.sh"
+
+def get_dist( output ):
+    pattern = 'Distancia = (.*?)\n'
+    m = re.search( pattern, output )
+    dist = m.group( 1 )
+    return dist
+
+
+def get_vis( output ):
+    pattern = 'Visitas = (.*?)\n'
+    m = re.search( pattern, output )
+    vis = m.group( 1 )
+    return vis
+
+o_f = open( output_file, 'wb' )
+writer = csv.writer( o_f )
+writer.writerow( [ 'visitas', 'distancias' ] )
 
 for filename in os.listdir(path):
     # do your stuff
-    subprocess.call([program, filename])
-
-#subprocess.call(["test.exe", files[i]])
-
-# for i in range (len(files)):
-#     # em python 3.5 usa run
-#     subprocess.call([program, files[i]])
-
-# with open('argumentos.txt','r') as f:
-#     for line in f:
-#         for x in range(30):
-#             l = line.split()
-#             l.append(str(x))
-#             subprocess.Popen([program]+l)
+    subprocess.call([cmd, filename])
+    vis = get_dist(output)
+    dist = get_vis(output)
+    writer.writerow( [ vis, dist ] )
+    o_f.flush()
