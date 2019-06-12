@@ -230,38 +230,35 @@ output["Visitas = \(Z) \n"];
 
 output["Distancia = \(obj)\n"];
 
-output["Dist total= \(rota)\n"];
+% output["Dist total= \(rota)\n"];
 
-output["Tempo total= \(dayWl)\n"];
+% output["Tempo total= \(dayWl)\n"];
 
-output["Maximum e minimum:\(maximum) , \(minimum)\n"];
+% output["Maximum e minimum:\(maximum) , \(minimum)\n"];
+% output["\(Z), \(obj)"];
 
-% output["path = \n"];
-% output[show(row(prox,r))++ if r == nbVehi then "" else "\n " endif | r in Enfermeiras ];
-% output["\n"];
-
-  output[
-      if fix(x[i,j,r,s])=1 then
-             if r = 1 then
-               "\\draw [black,->] (P\(i)) edge (P\(j));" ++ "\n" 
-             else 
-               if r= 2 then
-                 "\\draw [red,->] (P\(i)) edge (P\(j));" ++ "\n" 
-               else 
-                 if r = 3 then
-                   "\\draw [blue,->] (P\(i)) edge (P\(j));" ++ "\n" 
-                 else 
-                   if r = 4 then
-                     "\\draw [yellow,->] (P\(i)) edge (P\(j));" ++ "\n" 
-                   else "\\draw [grey,->] (P\(i)) edge (P\(j)); \(r)" ++ "\n" endif
-                 endif
-                endif
-             endif
-      else 
-        "" 
-      endif
-      | 
-      r in Enfermeiras, i, j in Locations, s in Services
-     ];
+%   output[
+%       if fix(x[i,j,r,s])=1 then
+%              if r = 1 then
+%                "\\draw [black,->] (P\(i)) edge (P\(j));" ++ "\n" 
+%              else 
+%                if r= 2 then
+%                  "\\draw [red,->] (P\(i)) edge (P\(j));" ++ "\n" 
+%                else 
+%                  if r = 3 then
+%                    "\\draw [blue,->] (P\(i)) edge (P\(j));" ++ "\n" 
+%                  else 
+%                    if r = 4 then
+%                      "\\draw [yellow,->] (P\(i)) edge (P\(j));" ++ "\n" 
+%                    else "\\draw [grey,->] (P\(i)) edge (P\(j)); \(r)" ++ "\n" endif
+%                  endif
+%                 endif
+%              endif
+%       else 
+%         "" 
+%       endif
+%       | 
+%       r in Enfermeiras, i, j in Locations, s in Services
+%      ];
 
 % j != 1 e i!= nbNodes
