@@ -6,20 +6,20 @@ import csv
 import subprocess
 import os
 
-path = '/home/gabriela/INSTANCES FINAL/'
+path_to_dzn = '/home/gabriela/INSTANCES FINAL/'
 output_file = '/home/gabriela/NurseRostering/HHCP/Geradores/res.csv'
-cmd = './MiniZincIDE.sh HCS_Novo.mzn'
-program = "MiniZincIDE.sh"
+tmp_log_file = '/home/gabriela/NurseRostering/HHCP/Geradores/tmp_log_file.txt'
+path_to_mzn = '/home/gabriela/NurseRostering/HHCP/HCS_Novo.mzn'
 
 def get_dist( output ):
-    pattern = 'Distancia = (.*?)\n'
+    pattern = 'Distancia = (.*)\n'
     m = re.search( pattern, output )
     dist = m.group( 1 )
     return dist
 
 
 def get_vis( output ):
-    pattern = 'Visitas = (.*?)\n'
+    pattern = 'Visitas = (.*)\n'
     m = re.search( pattern, output )
     vis = m.group( 1 )
     return vis
@@ -28,10 +28,26 @@ o_f = open( output_file, 'wb' )
 writer = csv.writer( o_f )
 writer.writerow( [ 'visitas', 'distancias' ] )
 
-for filename in os.listdir(path):
-    # do your stuff
-    subprocess.call([cmd, filename])
+for filename in os.listdir(path_to_dzn):
+    # executes program passing files as parameters
+    # subprocess.call([cmd, filename])
+    cmd = '/home/gabriela/MiniZincIDE-2.2.3-bundle-linux/MiniZincIDE.sh  {} {} 2>&1 | tee {}'.format( path_to_mzn, filename, tmp_log_file )
+    os.system( cmd )
+
+    output = open( tmp_log_file, 'r' ).read()
+
+    # get data from output
     vis = get_dist(output)
     dist = get_vis(output)
+
+    # writes filtered results in csv file
     writer.writerow( [ vis, dist ] )
     o_f.flush()
+
+# re.search nao tá achando nada provavelmente (abre mzn e dzn no minizinc mas nao executa) 
+# ==> colocar gurobi nos parametros pra ver se vai
+# File "executarInstancias.py", line 41, in <module>
+#     vis = get_dist(output)
+#   File "executarInstancias.py", line 18, in get_dist
+#     dist = m.group( 1 )
+# AttributeError: 'NoneType' object has no attribute 'group'
