@@ -31,7 +31,7 @@ writer.writerow( [ 'visitas', 'distancias' ] )
 for filename in os.listdir(path_to_dzn):
     # executes program passing files as parameters
     # subprocess.call([cmd, filename])
-    cmd = '/home/gabriela/MiniZincIDE-2.2.3-bundle-linux/MiniZincIDE.sh  {} {} 2>&1 | tee {}'.format( path_to_mzn, filename, tmp_log_file )
+    cmd = '/home/gabriela/MiniZincIDE-2.2.3-bundle-linux/MiniZincIDE.sh  {} {} | tee {}'.format( path_to_mzn, filename, tmp_log_file )
     os.system( cmd )
 
     output = open( tmp_log_file, 'r' ).read()
@@ -44,10 +44,11 @@ for filename in os.listdir(path_to_dzn):
     writer.writerow( [ vis, dist ] )
     o_f.flush()
 
-# re.search nao tá achando nada provavelmente (abre mzn e dzn no minizinc mas nao executa) 
 # ==> colocar gurobi nos parametros pra ver se vai
 # File "executarInstancias.py", line 41, in <module>
 #     vis = get_dist(output)
 #   File "executarInstancias.py", line 18, in get_dist
 #     dist = m.group( 1 )
 # AttributeError: 'NoneType' object has no attribute 'group'
+
+#./minizinc --solver Gurobi ~/NurseRostering/HHCP/HCS_Novo.mzn ~/INSTANCES\ FINAL/Instanz_HCSRP_3_10_0_0.dzn -o saida.txt
