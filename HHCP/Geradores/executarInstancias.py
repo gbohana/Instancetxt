@@ -15,7 +15,7 @@ for filename in os.listdir(path_to_dzn):
     arq = filename
     if arq.endswith('.dzn'):
         arq = arq[:-4]
-    print(arq + " "+ filename)
+    #print(arq + " "+ filename)
     cmd = './minizinc --solver Gurobi /home/gabriela/NurseRostering/HHCP/HCS_Novo.mzn /home/gabriela/INSTANCES\ FINAL/' + filename +' -o /home/gabriela/INSTANCES\ FINAL/' + arq + '.sol'
     os.system( cmd )
 
