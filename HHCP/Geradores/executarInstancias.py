@@ -1,6 +1,3 @@
-
-"run vw with various bits settings, save reported losses to a csv file"
-"subprocess.check_output() version"
 import re
 import csv
 import subprocess
@@ -16,9 +13,9 @@ for filename in os.listdir(path_to_dzn):
     if arq.endswith('.dzn'):
         arq = arq[:-4]
         arqcheck = arq + '.sol'
-        print(arq + ' '+ arqcheck)
-        print( str(os.path.exists(arqcheck) )) #ta dando false, qd deveria ser true; com './' na frente tb
-        if os.path.exists('./' +arqcheck)==0:
+        # print(arq + ' '+ arqcheck)
+        # print( str(os.path.exists(arqcheck) ))
+        if os.path.exists('/home/gabriela/INSTANCES FINAL/' +arqcheck)==0:
             cmd = './minizinc --solver Gurobi /home/gabriela/NurseRostering/HHCP/HCS_Novo.mzn /home/gabriela/INSTANCES\ FINAL/' + filename +' -o /home/gabriela/INSTANCES\ FINAL/' + arq + '.sol'
             os.system( cmd )
 
