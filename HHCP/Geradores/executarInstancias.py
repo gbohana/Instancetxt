@@ -16,7 +16,7 @@ for filename in os.listdir(path_to_dzn):
         # print(arq + ' '+ arqcheck)
         # print( str(os.path.exists(arqcheck) ))
         if os.path.exists('/home/gabriela/INSTANCES FINAL/' +arqcheck)==0:
-            cmd = './minizinc --solver Gurobi /home/gabriela/NurseRostering/HHCP/HCS_Novo.mzn /home/gabriela/INSTANCES\ FINAL/' + filename +' -o /home/gabriela/INSTANCES\ FINAL/' + arq + '.sol'
+            cmd = './minizinc --solver Gurobi --time-limit 14400000 /home/gabriela/NurseRostering/HHCP/HCS_Novo.mzn /home/gabriela/INSTANCES\ FINAL/' + filename +' -o /home/gabriela/INSTANCES\ FINAL/' + arq + '.sol'
             os.system( cmd )
 
 #./minizinc --solver Gurobi ~/NurseRostering/HHCP/HCS_Novo.mzn ~/INSTANCES\ FINAL/Instanz_HCSRP_3_10_0_0.dzn -o saida.txt
