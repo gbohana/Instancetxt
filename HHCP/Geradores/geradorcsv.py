@@ -20,12 +20,12 @@ with open(path_to_csv + 'res.csv', 'w') as writeFile:
             reader = csv.reader(readFile)
             lines = list(reader)
             visitas = str(lines[0])
-            print(visitas)
+            # print(visitas)
             visitas = visitas[13:-4]
             distancia = str(lines[1])
-            print(distancia)
+            # print(distancia)
             distancia = distancia[15:-3]
-            print(visitas, distancia)
+            # print(visitas, distancia)
             # 11 13
             arq.append(visitas) # concatenar à lista!!
             arq.append(distancia)
