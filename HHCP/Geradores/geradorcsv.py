@@ -7,7 +7,7 @@ import os.path
 path_to_ins = 'C:\\Users\\gabi_\\Documents\\Sols\\'
 path_to_csv = 'C:\\Users\\gabi_\\Documents\\'
 
-with open(path_to_csv + 'res.csv', 'w') as writeFile:
+with open(path_to_csv + 'res.csv', 'w', newline='') as writeFile:
     writer = csv.writer(writeFile)
     
     for filename in os.listdir(path_to_ins):
